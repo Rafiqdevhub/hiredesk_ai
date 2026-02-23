@@ -12,11 +12,8 @@ from app.services.prompts import (
 )
 from app.models.schemas import ResumeAnalysisResponse, ResumeData, Question, CandidateSelectionResponse, CandidateSelectionResult
 from app.dependencies.auth import get_current_user, TokenData
-from slowapi import Limiter
-from slowapi.util import get_remote_address
 
 logger = logging.getLogger(__name__)
-
 
 
 router = APIRouter()
