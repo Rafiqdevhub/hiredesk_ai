@@ -17,9 +17,9 @@ from app.routers import resume_router
 limiter = Limiter(key_func=get_remote_address)
 
 app = FastAPI(
-    title="JobPsych ai",
-    version="3.0.0",
-    description="AI-powered resume analysis and job role recommendation service and HR interview question generation for HR professionals.",
+    title="HireDesk AI",
+    version="3.1.0",
+    description="AI-powered resume analysis and HR interview question generation for HR professionals.",
 )
 
 app.state.limiter = limiter
@@ -32,10 +32,8 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://jobpsych.vercel.app",
         "https://hiredesk.vercel.app", 
         "http://localhost:3000",
-        "http://localhost:3001",
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"],
@@ -50,12 +48,12 @@ app.include_router(resume_router.router, prefix="/api", tags=["resume"])
 @app.get("/")
 async def root():
     return {
-        "app_name": "JobPsych AI - Role Suggestion and HR Intelligence Platform",
+        "app_name": "HireDesk AI - Role Suggestion and HR Intelligence Platform",
         "message": "AI-Powered Resume Analysis & Job Role Recommendation Service",
         "status": "running",
-        "version": "3.0.0",
+        "version": "3.1.0",
         "description": (
-            "JobPsych AI is a comprehensive HR intelligence platform that leverages Google Gemini AI "
+            "HireDesk AI is a comprehensive HR intelligence platform that leverages Google Gemini AI "
             "to provide advanced resume analysis, job role recommendations, and interview question generation. "
             "Perfect for HR professionals, recruiters, and hiring managers looking to streamline their recruitment process."
         ),
@@ -74,7 +72,6 @@ async def root():
             "ai_analysis": {
                 "description": "Advanced AI-powered analysis using Google Gemini 2.5 Flash",
                 "features": [
-                    "Job role recommendations with match percentages (0-100%)",
                     "Comprehensive resume scoring and breakdown",
                     "Personality insights and work style analysis",
                     "Career path prediction and advancement timeline",
@@ -103,16 +100,6 @@ async def root():
             }
         },
         "api_endpoints": {
-            "analyze_resume": {
-                "endpoint": "/api/analyze-resume",
-                "method": "POST",
-                "description": "Basic resume analysis with role recommendations",
-                "rate_limit": "5 requests per day per IP address",
-                "authentication": "Not required",
-                "required_params": ["file (PDF/DOCX)"],
-                "optional_params": ["target_role", "job_description"],
-                "file_counting": "Each file increments filesUploaded by 1"
-            },
             "hiredesk_analyze": {
                 "endpoint": "/api/hiredesk-analyze",
                 "method": "POST",
@@ -180,9 +167,7 @@ async def root():
                 "batch_analysis": "Number of batch analysis operations performed",
                 "compare_resumes": "Number of comparison operations performed"
             },
-            "rate_limit_headers": [
-                "/api/analyze-resume: 5 requests per day per IP (slowapi rate limiter)"
-            ]
+           
         },
         "workflow": {
             "step_1": "Upload resume files (PDF/DOCX format)",

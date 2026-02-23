@@ -1,4 +1,4 @@
-from typing import Dict, List, Any, Optional
+from typing import Dict, Any
 import os
 from app.models.schemas import ResumeScore, PersonalityInsights, CareerPathPrediction
 from app.services.prompts.base_prompt_service import BasePromptService
