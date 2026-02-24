@@ -12,6 +12,7 @@ from app.services.prompts import (
 )
 from app.models.schemas import ResumeAnalysisResponse, ResumeData, Question, CandidateSelectionResponse, CandidateSelectionResult
 from app.dependencies.auth import get_current_user, TokenData
+from app.services.rate_limit_service import rate_limit_service
 
 logger = logging.getLogger(__name__)
 
